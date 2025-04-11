@@ -51,7 +51,7 @@ public class Product {
                 break;
 
             case "Japan":
-                if (category.equals("Automobiles")) { price *= 1.15; }
+                if (category.equals("Automobile")) { price *= 1.15; }
                 break;
 
             case "India":
@@ -80,13 +80,12 @@ public class Product {
         }
     }
 
-    //method to sort in alphabetical order??
-    //...
+
 
     //toString
     @Override
     public String toString() {
-        return productName + "," + country + "," + category + "," + price;
+        return productName + "," + country + "," + category + "," + String.format("%.2f", price);
     }
 
 
