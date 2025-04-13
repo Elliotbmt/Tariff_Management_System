@@ -12,6 +12,7 @@ public class TariffList implements TariffPolicy {
     private TariffNode head;
     private int size;
 
+
     public class TariffNode {
         private Tariff t;
         private TariffNode next;
@@ -227,5 +228,21 @@ public class TariffList implements TariffPolicy {
 
     return true;
 
+    }
+
+
+
+    @Override
+    public String evaluateTrade(double proposedTariff, double minimumTariff) {
+        if (proposedTariff >= minimumTariff) {
+            return "Accepted";
+        } 
+        //double surcharge = tradeValue * ((minimumTariff - proposedTariff) / 100.0) add this in driver?
+        else if (proposedTariff >= minimumTariff * 0.8) {
+            return "Conditionally Accepted";
+        } 
+        else {
+            return "Rejected";
+        }
     }
 }
