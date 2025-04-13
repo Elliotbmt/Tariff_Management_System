@@ -147,7 +147,7 @@ public class TariffList implements TariffPolicy {
     public void deleteFromStart() {
         
         if (size == 0) {
-            //...
+            return;
         }
 
         head = head.next;
@@ -209,7 +209,7 @@ public class TariffList implements TariffPolicy {
     }
 
     public boolean equals(TariffList other) {
-        //check if empty an check if same size
+        //check if empty and check if same size
         if (other == null || this.size != other.size) {
             return false;
         }
@@ -229,7 +229,6 @@ public class TariffList implements TariffPolicy {
     return true;
 
     }
-
 
 
     @Override
