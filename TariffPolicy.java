@@ -1,5 +1,5 @@
 
 
 public interface TariffPolicy {
-    String evaluateTrade(double proposedTariff, double minimumTariff);
+    String evaluateTrade(double proposedTariff, double minimumTariff);  
 }
