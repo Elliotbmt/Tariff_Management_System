@@ -156,18 +156,76 @@ public class TariffList implements TariffPolicy {
 
 
     public void replaceAtIndex(int index, Tariff t) {
+        if (index < 0 || index >= size) {
+            return;  
+        }
 
-    }
-
-    public void find() {
-
-    }
-
-    public void contains() {
-
-    }
-
-    public void equals() {
+        else {
+            TariffNode n = head;
         
+            for (int i = 0; i<index; i++) { 
+                n = n.next;
+            } 
+            n.setT(t); //not sure if this function works
+        }
+
+    }
+
+    //search list for a tarif
+    public TariffNode find(String origin, String destination, String category) {
+        int iterations = 0;
+        TariffNode n = head; 
+        
+        while(n!= null) {
+            iterations++;
+
+            Tariff t = n.getT();
+            if (t.getOriginCountry().equalsIgnoreCase(origin) && t.getDestinationCountry().equalsIgnoreCase(destination) && t.getProductCategory().equalsIgnoreCase(category)) {
+                System.out.println("It took " + iterations + "iterations to find this product.");
+                return n; //returns a pointer to that TariffNode
+            }
+
+            n = n.next;
+        }
+
+        System.out.println("After " + iterations + " iterations this product was not found.");
+        return null;
+
+    }
+
+    public boolean contains(String origin, String destination, String category) {
+        TariffNode n = head;
+
+        while(n!= null) {
+            Tariff t = n.getT();
+
+            if (t.getOriginCountry().equalsIgnoreCase(origin) && t.getDestinationCountry().equalsIgnoreCase(destination) && t.getProductCategory().equalsIgnoreCase(category)) { 
+                return true;
+            }
+            n = n.next;
+        }
+        return false;
+    }
+
+    public boolean equals(TariffList other) {
+        //check if empty an check if same size
+        if (other == null || this.size != other.size) {
+            return false;
+        }
+
+        TariffNode n1 = this.head;
+        TariffNode n2 = other.head;
+
+        while (n1 != null && n2 != null) {
+            if (!n1.getT().equals(n2.getT())) {
+                return false;
+            }
+
+            n1 = n1.getNext();
+            n2 = n2.getNext();
+        }
+
+    return true;
+
     }
 }
