@@ -1,4 +1,3 @@
-
 import java.util.NoSuchElementException;
 
 //---------------------------------------------------------------------------------------
@@ -9,7 +8,7 @@ import java.util.NoSuchElementException;
 
 public class TariffList implements TariffPolicy {
 
-    private TariffNode head;
+    private static TariffNode head;
     private int size;
 
 
@@ -230,13 +229,23 @@ public class TariffList implements TariffPolicy {
 
     }
 
+    public static String printList(TariffList list){
+        TariffList.TariffNode current=list.head;
+        String result="";
+        while (current!=null){
+            result=current.getT().toString();
+            current=current.getNext();
+        }
+        return result;
+    }
+
 
     @Override
     public String evaluateTrade(double proposedTariff, double minimumTariff) {
         if (proposedTariff >= minimumTariff) {
             return "Accepted";
         } 
-        //double surcharge = tradeValue * ((minimumTariff - proposedTariff) / 100.0) add this in driver?
+
         else if (proposedTariff >= minimumTariff * 0.8) {
             return "Conditionally Accepted";
         } 

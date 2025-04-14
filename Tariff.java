@@ -61,19 +61,18 @@ public class Tariff {
     }
 
 
-    //c) clone method ???
+    //c) clone method
      public Tariff clone() {
         return new Tariff(this);
     }
 
 
     //d)
-
     //toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Tariff{");
+        sb.append("\nTariff{");
         sb.append("destinationCountry=").append(destinationCountry);
         sb.append(", originCountry=").append(originCountry);
         sb.append(", productCategory=").append(productCategory);
@@ -91,8 +90,5 @@ public class Tariff {
         && originCountry.equalsIgnoreCase(other.originCountry)
         && productCategory.equalsIgnoreCase(other.productCategory)
         && minimumTariff == other.minimumTariff;
-    
     }
-
-
 }
