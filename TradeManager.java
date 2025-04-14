@@ -4,7 +4,7 @@ import java.util.*;
 public class TradeManager {
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the Trade Manager");
+        System.out.println("Welcome to the Trade Manager!");
 
         //a)
         TariffList list1 = new TariffList();
@@ -34,7 +34,7 @@ public class TradeManager {
             }
             input.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error File not found");
+            System.out.println("Error File not found (Tariffs).");
             return;
         } catch (Exception e) {
             System.out.println("Error");
@@ -46,30 +46,38 @@ public class TradeManager {
 
         //read and store requests
         try {
-            Scanner input2 = new Scanner(new FileInputStream("TariffRequests"));
-            while (input.hasNextLine()) {
-                String line = input.nextLine().trim();
+            Scanner input2 = new Scanner(new FileInputStream("TradeRequests.txt"));
+            while (input2.hasNextLine()) {
+                String line = input2.nextLine().trim();
 
                 String[] parts = line.split(" ");
-                String destinationCountry = parts[0].trim();
-                String originCountry = parts[1].trim();
-                String productCategory = parts[2].trim();
-                int tradeValue = Integer.parseInt(parts[3].trim());
-                int proposedTariff = Integer.parseInt(parts[4].trim());
+                String rNb = parts[0].trim();
+                String destinationCountry = parts[1].trim();
+                String originCountry = parts[2].trim();
+                String productCategory = parts[3].trim();
+                int tradeValue = Integer.parseInt(parts[4].trim());
+                int proposedTariff = Integer.parseInt(parts[5].trim());
 
-                TradeRequest tr = new TradeRequest(destinationCountry, originCountry, productCategory, tradeValue, proposedTariff);
+                TradeRequest tr = new TradeRequest(rNb, destinationCountry, originCountry, productCategory, tradeValue, proposedTariff);
                 request.add(tr);
             }
             input2.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("File not found (Trade).");
         }
 
         //process requests using methods from tarifflist
+        System.out.println("\n--------------------------------\nResults of the trade requests:\n--------------------------------");
         for (int i = 0; i < request.size(); i++) {
             TradeRequest tr = request.get(i);
             TariffList.TariffNode node = list1.find(tr.getDCountry(),tr.getOCountry(),tr.getPCategory());
+
+            //if find() doesn't find a matching tariff
+            if (node==null){
+                System.out.println("\n"+tr.getRnb()+" - Rejected. No matching Tariff.");
+                continue;
+            }
 
             String result=list1.evaluateTrade(tr.getPTariff(),node.getT().getMinimumTariff());
 
@@ -78,26 +86,29 @@ public class TradeManager {
             //Trade outcome details computed in driver because we need int tradeValue from TradeManager.
             switch (result){
                 case ("Accepted"):
-                    System.out.print("\nProposed tariff meets or exceeds the minimum requirement.");
+                    System.out.println("\nProposed tariff meets or exceeds the minimum requirement.");
                     break;
 
                 case ("Conditionally Accepted"):
                     double surcharge = tr.getTValue() * ((node.getT().getMinimumTariff() - tr.getPTariff() / 100.0));
-                    System.out.print("Accepted\nProposed tariff "+tr.getPTariff()+"% is within 20% of the required minimum tariff "+node.getT().getMinimumTariff()+"%." +
+                    System.out.println("\nProposed tariff "+tr.getPTariff()+"% is within 20% of the required minimum tariff "+node.getT().getMinimumTariff()+"%." +
                             "\nA surcharge of "+surcharge+"$ is applied.");
+                    break;
 
                 case ("Rejected"):
-                    System.out.print("\nProposed tariff "+tr.getPTariff()+"is more than 20% below the required minimum tariff "+node.getT().getMinimumTariff());
+                    System.out.println("\nProposed tariff "+tr.getPTariff()+"is more than 20% below the required minimum tariff "+node.getT().getMinimumTariff());
+                    break;
 
                 default:
-                    System.out.print("Error");
+                    System.out.println("Error");
+                    break;
             }
 
         }
 
         //d)
         Scanner input3=new Scanner(System.in);
-        System.out.print("Enter a tariff separated by spaces (origin country, destination country, product category): ");
+        System.out.println("\n---------------------------------------------\nd) Search for a tariff. Enter a tariff separated by spaces (origin country, destination country, product category): ");
         String origin=input3.next();
         String destination=input3.next();
         String product=input3.next();
@@ -109,13 +120,12 @@ public class TradeManager {
         } else {
             System.out.print("Tariff not found");
         }
-
         input3.close();
 
 
         //e) test all methods
         Scanner input4=new Scanner(System.in);
-        System.out.print("Test all methods? (y or n)");
+        System.out.println("\n-----------------------------\ne) Test all methods? (y or n)");
         String choice=input4.nextLine();
         if (choice.equalsIgnoreCase("n")){
             System.out.print("Ending program.");
@@ -143,8 +153,8 @@ public class TradeManager {
 
         private static int counter = 1;   //for request number
 
-        public TradeRequest(String destinationCountry, String originCountry,String productCategory,int tradeValue,int proposedTariff){
-            this.rNb="REQ"+counter++;
+        public TradeRequest(String rNb, String destinationCountry, String originCountry,String productCategory,int tradeValue,int proposedTariff){
+            this.rNb=rNb;
             this.destinationCountry = destinationCountry;
             this.originCountry = originCountry;
             this.productCategory = productCategory;

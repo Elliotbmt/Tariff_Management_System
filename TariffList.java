@@ -181,14 +181,14 @@ public class TariffList implements TariffPolicy {
 
             Tariff t = n.getT();
             if (t.getOriginCountry().equalsIgnoreCase(origin) && t.getDestinationCountry().equalsIgnoreCase(destination) && t.getProductCategory().equalsIgnoreCase(category)) {
-                System.out.println("It took " + iterations + "iterations to find this product.");
+                System.out.println("\n----------------------------------------------------\nIt took " + iterations + " iterations to find this product:");
                 return n; //returns a pointer to that TariffNode
             }
 
             n = n.next;
         }
 
-        System.out.println("After " + iterations + " iterations this product was not found.");
+        System.out.println("\n--------------------------------------------------\nAfter " + iterations + " iterations this product was not found.");
         return null;
 
     }
