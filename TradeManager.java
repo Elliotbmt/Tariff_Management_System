@@ -192,13 +192,13 @@ public class TradeManager {
 
         //TariffList tests
         TariffList testList1=new TariffList();
-        testList1.addToStart(t1);
+        testList1.addToStart(new Tariff(t1)); //deep copy
         System.out.println("\nList: "+TariffList.printList(testList1));
 
-        testList1.addToStart(t2);
+        testList1.addToStart(new Tariff(t2)); //deep copy
         System.out.println("\nList after using addToStart() to add Tariff 2: "+TariffList.printList(testList1));
 
-        testList1.insertAtIndex(1,t2);
+        testList1.insertAtIndex(1,new Tariff(t2)); //deep copy
         System.out.println("\nList after using insertAtIndex(1) to add Tariff 2: "+TariffList.printList(testList1));
 
         testList1.deleteFromStart();
@@ -207,12 +207,12 @@ public class TradeManager {
         testList1.deleteFromIndex(0);
         System.out.println("\nList after using deleteFromIndex(0) to remove Tariff at index 0: "+TariffList.printList(testList1));
 
-        testList1.replaceAtIndex(0, t2);
+        testList1.replaceAtIndex(0, new Tariff(t2)); //deep copy
         System.out.println("\nList after using replaceAtIndex(0) to replace Tariff at index 0 Tariff 2: "+TariffList.printList(testList1));
 
-        testList1.addToStart(t1);
-        testList1.addToStart(t1);
-        System.out.println("\nList after adding Tariff 1 twice: "+TariffList.printList(testList1));
+        testList1.addToStart(new Tariff(t1)); //deep copy
+        testList1.addToStart(new Tariff(t2));
+        System.out.println("\nList after adding Tariff 1 and Tariff 2 (for later tests): "+TariffList.printList(testList1));
 
         System.out.println("\nUsing find() method on Tariff with origin 'USA', destination 'France', category 'CPU'.");
         TariffList.TariffNode node=testList1.find("France", "USA", "CPU");
@@ -226,8 +226,9 @@ public class TradeManager {
 
         //test equals method
         TariffList testList2=new TariffList();
-        Tariff t1copy=new Tariff(t1); //deep copy
-        testList2.addToStart(t1copy);
+        testList2.addToStart(new Tariff(t1)); //deep copy every time
+        testList2.addToStart(new Tariff(t1));
+        testList2.addToStart(new Tariff(t1));
         System.out.println("\nList 1: "+TariffList.printList(testList1)+"\nList 2: "+TariffList.printList(testList2)+
                 "\nUsing equals() method on list 1 and list 2: "+testList1.equals(testList2));
 

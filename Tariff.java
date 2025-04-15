@@ -95,6 +95,6 @@ public class Tariff {
         && productCategory.equalsIgnoreCase(other.productCategory)
         && Math.abs(minimumTariff - other.minimumTariff) < EPSILON;
 
-        //we think maybe the equals method isnt working because of tiny differences like 1.0 != 1.0000001
+        //we think maybe the equals method isn't working because of tiny differences like 1.0 != 1.0000001
     }
 }
