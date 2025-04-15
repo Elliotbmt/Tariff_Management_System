@@ -236,9 +236,10 @@ public class TradeManager {
         //products test
         System.out.println("\n\nProducts test---------------------------");
 
+        TariffApplier.main(new String[0]); //to put the products in arraylist<products>.
         TariffApplier.alphabeticalOrder(TariffApplier.products);
 
-        System.out.print("Sort products from ArrayList<Products> in alphabetical order: ");
+        System.out.println("Sort products from ArrayList<Products> in alphabetical order: ");
         for (int i=0; i<TariffApplier.products.size(); i++) {
             System.out.println(TariffApplier.products.get(i).toString());
         }
