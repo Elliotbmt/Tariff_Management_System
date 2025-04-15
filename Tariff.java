@@ -87,9 +87,14 @@ public class Tariff {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Tariff other = (Tariff) obj;
+
+        final double EPSILON = 0.0001;
+
         return destinationCountry.equalsIgnoreCase(other.destinationCountry)
         && originCountry.equalsIgnoreCase(other.originCountry)
         && productCategory.equalsIgnoreCase(other.productCategory)
-        && minimumTariff == other.minimumTariff;
+        && Math.abs(minimumTariff - other.minimumTariff) < EPSILON;
+
+        //we think maybe the equals method isnt working because of tiny differences like 1.0 != 1.0000001
     }
 }
