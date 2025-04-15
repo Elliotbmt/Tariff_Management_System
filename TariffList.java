@@ -230,15 +230,15 @@ public class TariffList implements TariffPolicy {
     }
 
     public static String printList(TariffList list){
-        TariffList.TariffNode current=list.head;
-        String result="";
-        int n=1;
-        while (current!=null){
-            result+="\n"+n+": "+current.getT().toString();
-            current=current.getNext();
-            n++;
+        TariffList.TariffNode current = list.head;
+        StringBuilder result = new StringBuilder();
+
+        while (current != null) {
+            result.append(current.getT().toString()).append("\n");
+            current = current.getNext();
         }
-        return result;
+
+        return result.toString();
     }
 
 
