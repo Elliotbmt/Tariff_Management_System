@@ -172,7 +172,7 @@ public class TariffList implements TariffPolicy {
     }
 
     //search list for a tarif
-    public TariffNode find(String origin, String destination, String category) {
+    public TariffNode find(String destination, String origin, String category) {
         int iterations = 0;
         TariffNode n = head; 
         
@@ -193,7 +193,7 @@ public class TariffList implements TariffPolicy {
 
     }
 
-    public boolean contains(String origin, String destination, String category) {
+    public boolean contains(String destination, String origin, String category) {
         TariffNode n = head;
 
         while(n!= null) {
@@ -232,9 +232,11 @@ public class TariffList implements TariffPolicy {
     public static String printList(TariffList list){
         TariffList.TariffNode current=list.head;
         String result="";
+        int n=1;
         while (current!=null){
-            result=current.getT().toString();
+            result+="\n"+n+": "+current.getT().toString();
             current=current.getNext();
+            n++;
         }
         return result;
     }

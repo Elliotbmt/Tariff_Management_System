@@ -72,7 +72,7 @@ public class Tariff {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\nTariff{");
+        sb.append("Tariff{");
         sb.append("destinationCountry=").append(destinationCountry);
         sb.append(", originCountry=").append(originCountry);
         sb.append(", productCategory=").append(productCategory);
@@ -84,6 +84,7 @@ public class Tariff {
     //equals method
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Tariff other = (Tariff) obj;
         return destinationCountry.equalsIgnoreCase(other.destinationCountry)

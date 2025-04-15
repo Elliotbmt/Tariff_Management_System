@@ -108,9 +108,9 @@ public class TradeManager {
 
         //d)
         Scanner input3=new Scanner(System.in);
-        System.out.println("\n---------------------------------------------\nd) Search for a tariff. Enter a tariff separated by spaces (origin country, destination country, product category): ");
-        String origin=input3.next();
+        System.out.print("\n---------------------------------------------\nd) Search for a tariff. Enter a tariff separated by spaces (destination country, origin country, product category): ");
         String destination=input3.next();
+        String origin=input3.next();
         String product=input3.next();
 
         TariffList.TariffNode result=list1.find(origin, destination, product);
@@ -120,13 +120,12 @@ public class TradeManager {
         } else {
             System.out.print("Tariff not found");
         }
-        input3.close();
 
 
         //e) test all methods
-        Scanner input4=new Scanner(System.in);
-        System.out.println("\n-----------------------------\ne) Test all methods? (y or n)");
-        String choice=input4.nextLine();
+        System.out.print("\n-----------------------------\ne) Test all methods? (y or n): ");
+        input3.nextLine();
+        String choice=input3.nextLine();
         if (choice.equalsIgnoreCase("n")){
             System.out.print("Ending program.");
             System.exit(0);
@@ -179,7 +178,7 @@ public class TradeManager {
     public static void testAllMethods(){
 
         //Tariff tests
-        System.out.println("\nTariff Tests-----------------------");
+        System.out.println("\n---------------------------------\nTESTS\n---------------------------------\n\nTariff Tests-----------------------");
         Tariff t1=new Tariff("France", "USA", "CPU", 20);
         Tariff t2=new Tariff("Japan", "Canada", "Mouse", 30);
         Tariff t3=new Tariff(t1);
@@ -189,49 +188,48 @@ public class TradeManager {
                 "\nCopy of Tariff 1: "+t3.toString()+"\nClone of Tariff 1: "+t4.toString()+
                 "\nEquals method (Tariff 1 and Tariff 2): "+t1.equals(t2)+
                 "\nEquals method (Tariff 1 and Copy of Tariff 1): "+t1.equals(t3)+
-                "\n\n TariffList Tests-------------------------");
+                "\n\nTariffList Tests-------------------------");
 
         //TariffList tests
         TariffList testList1=new TariffList();
         testList1.addToStart(t1);
-        System.out.println("List: "+TariffList.printList(testList1));
+        System.out.println("\nList: "+TariffList.printList(testList1));
 
         testList1.addToStart(t2);
-        System.out.println("List after using addToStart() to add Tariff 2: "+TariffList.printList(testList1));
+        System.out.println("\nList after using addToStart() to add Tariff 2: "+TariffList.printList(testList1));
 
         testList1.insertAtIndex(1,t2);
-        System.out.println("List after using insertAtIndex() to add Tariff 2: "+TariffList.printList(testList1));
+        System.out.println("\nList after using insertAtIndex(1) to add Tariff 2: "+TariffList.printList(testList1));
 
         testList1.deleteFromStart();
-        System.out.println("List after using deleteFromStart() to remove the first Tariff: "+TariffList.printList(testList1));
+        System.out.println("\nList after using deleteFromStart() to remove the first Tariff: "+TariffList.printList(testList1));
 
         testList1.deleteFromIndex(0);
-        System.out.println("List after using deleteFromIndex() to remove Tariff at index 0: "+TariffList.printList(testList1));
+        System.out.println("\nList after using deleteFromIndex(0) to remove Tariff at index 0: "+TariffList.printList(testList1));
 
         testList1.replaceAtIndex(0, t2);
-        System.out.println("List after using replaceAtIndex() to replace Tariff at index 0 Tariff 2: "+TariffList.printList(testList1));
+        System.out.println("\nList after using replaceAtIndex(0) to replace Tariff at index 0 Tariff 2: "+TariffList.printList(testList1));
 
         testList1.addToStart(t1);
         testList1.addToStart(t1);
-        System.out.println("List after adding Tariff 1 twice: "+TariffList.printList(testList1));
+        System.out.println("\nList after adding Tariff 1 twice: "+TariffList.printList(testList1));
 
-        System.out.println("\nUsing find() method on Tariff with origin 'France', destination 'USA', category 'CPU'.");
+        System.out.println("\nUsing find() method on Tariff with origin 'USA', destination 'France', category 'CPU'.");
         TariffList.TariffNode node=testList1.find("France", "USA", "CPU");
         if (node!=null) {
-            System.out.println("Found: "+node.getT().toString());
-        } else {
-            System.out.println("Not found.");
+            System.out.println(node.getT().toString());
         }
 
-        System.out.println("\nUsing contain() method on Tariff with origin 'Japan', destination 'Canada', category 'Mouse'?: "
+        System.out.println("\nUsing contain() method on Tariff with origin 'Canada', destination 'Japan', category 'Mouse'?: "
                 +testList1.contains("Japan", "Canada", "Mouse"));
+
 
         //test equals method
         TariffList testList2=new TariffList();
-        testList2.addToStart(t2);
-        testList2.addToStart(t2);
+        Tariff t1copy=new Tariff(t1); //deep copy
+        testList2.addToStart(t1copy);
         System.out.println("\nList 1: "+TariffList.printList(testList1)+"\nList 2: "+TariffList.printList(testList2)+
-                "equals() method on list 1 and list 2: "+testList1.equals(testList2));
+                "\nUsing equals() method on list 1 and list 2: "+testList1.equals(testList2));
 
         System.out.println("\nUsing evaluateTrade() method with proposed tariff 25% and minimum tariff 20%. Result: "+testList1.evaluateTrade(25, 20));
 
