@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 public class TariffList implements TariffPolicy {
 
-    private static TariffNode head;
+    private TariffNode head;
     private int size;
 
 
