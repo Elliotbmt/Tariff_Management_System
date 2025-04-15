@@ -225,7 +225,7 @@ public class TariffList implements TariffPolicy {
             n2 = n2.getNext();
         }
 
-    return true;
+    return (n1 == null && n2 == null);
 
     }
 
